@@ -1,6 +1,13 @@
 name: Check Banned Tables
 
-on: [pull_request]
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+  push:
+    branches:
+      - main
+      - 'release/*'
+      - 'feature/*'
 
 jobs:
   check-banned-tables:
@@ -19,4 +26,4 @@ jobs:
       run: pip install --upgrade pip
 
     - name: Run banned tables check
-      run: python check_banned_tables.py banned_tables.txt
+      run: python sql_github_action_test/check_banned_tables.py config/banned_tables.txt
